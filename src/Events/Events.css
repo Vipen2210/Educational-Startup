@@ -1,0 +1,187 @@
+
+.cardDeck{
+    /* background-color: #f2f3f6; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  .event{
+    margin: 20px;
+  }
+  .Eventcard{
+    width: 25%;
+    text-align: left;
+    margin-left: 50px;
+    margin-right: 50px;
+    color: #073763ff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    float: left;
+    text-align: center;
+    border-style: none;
+    font-family: manrope-light;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    margin-bottom: 40px;
+    margin-top: 40px;
+    background-color: seashell;
+  }
+  .Eventcontainer{
+    font-size: 30px;
+  }
+  .Eventcard .cardImages{
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    object-fit: cover;
+    height: 200px;
+  }
+  .Qdescription{
+    text-align: center;
+    font-size: 20px;
+    padding-left: 35px;
+    padding-right: 35px;
+  }
+
+  /* Event book  */
+  .eventBookContainer{
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+  }
+  .eventImage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .text{
+    padding: 100px;
+  }
+
+  .btnEvent{
+    margin: 20px;  
+  }
+
+  .img{
+    width: 400px;
+    height: 340px;
+  }
+
+  .noDataEventBook{
+
+    
+    background: url('../images/loading-gear.gif');
+    background-repeat: no-repeat;
+    background-position: center;
+
+  }
+
+  .EmptyImage{
+    width: 90vw;
+    height: 88vh;
+    /* margin-top: 5%; */
+    margin-left: 5vw;
+  }
+
+  /* Event heading   */
+    /* heading  */
+    .EventQuestion{
+      /* background-color: #f2f3f6; */
+      text-align: center;
+      margin-top: 10px;
+      font-size: 8vh;
+    }
+    .EventparaQuestion{
+      /* margin-top: 20px;
+      padding-top: 20px; */
+      /* padding-bottom: 50px; */
+      font-family: 'Manrope', sans-serif;
+    }
+    .EventQdescription{
+      text-align: center;
+      font-size: 20px;
+      padding-left: 35px;
+      padding-right: 35px;
+    }
+    .EventQspan{
+      color: #fe6c3e;
+    }
+    .Eventcourses{
+      text-align: left;
+    }
+
+    /* Filters   */
+    .filterHeading{
+      color: rgb(80, 78, 78);
+      margin-left: 10px;
+    }
+    .allTags{
+      /* background-color: cadetblue; */
+      display: flex;
+      flex-direction: row;
+    }
+    .allTags Button {
+      color: black;
+      background-color: rgb(148, 233, 148);
+      margin: 10px;
+      border: solid teal;
+    }
+    .allTags Button:hover {
+      background-color: #fe6c3e;
+      border: solid green;
+    }
+
+
+    /* Youtube  */
+    .youtubeShower{
+      width: 50vw;
+      height: 50vh;
+      margin-left: 5vw;
+      /* margin-top: 20vh; */
+  }
+  .updateButtonForEvents{
+    display: flex;
+    flex-direction: row;
+  }
+
+  .beforeYoutubeShower{
+    width: 50vw;
+    height: 50vh;
+    margin-left: 5vw;
+    background: url("https://thumbs.dreamstime.com/b/wait-handwritten-white-background-wait-169511926.jpg");
+    background-size: cover;
+  }
+
+  @media only screen and (max-width: 980px){
+    .eventBookContainer{
+      display: flex;
+      flex-direction: column;
+    }
+    .eventImage{
+       flex-direction: column;
+    }
+    .text{
+      padding: 30px;
+    }
+    .img{
+      width: 70vw;
+      height: 55vh;
+    }
+    .youtubeShower{
+      width: 90vw;
+      height: 55vh;
+      margin-top: 5vw;
+      /* margin-top: 20vh; */
+    }
+    .beforeYoutubeShower{
+      width: 90vw;
+      height: 55vh;
+      margin-left: 5vw;
+      background: url("https://thumbs.dreamstime.com/b/wait-handwritten-white-background-wait-169511926.jpg");
+      background-size: cover;
+    }
+  }
+  /* @media only screen and (max-width: 980px){
+    
+  } */
+
