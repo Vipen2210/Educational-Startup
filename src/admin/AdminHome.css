@@ -1,0 +1,33 @@
+.imageupload{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20vh;
+    margin-bottom: 10px; 
+    border: solid;
+    padding: 20px;
+    border-color: darkgray;
+    /* border-radius: .5px; */
+}
+
+.imageupload__progress{
+    width: 100%;
+}
+
+@media only screen and (max-width: 980px){
+    .imageupload{
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20vh;
+        margin-bottom: 10px; 
+        border: solid;
+        padding: 20px;
+        border-color: darkgray;
+        /* border-radius: .5px; */
+    }
+}
