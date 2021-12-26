@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 import TextField from "@mui/material/TextField";
+import { isCurrentUserAdmin } from "../widgets/IsCurrentUserAdmin";
 
 export default function Event({
   guestName,
@@ -30,6 +31,11 @@ export default function Event({
   const history = useHistory();
   const [youtubeLink, setYoutubeLink] = useState("");
   const [eventDate, setEventDate] = useState(true);
+  const [isAdmin,setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    isCurrentUserAdmin({setIsAdmin,currentUser});
+  }, [currentUser])
 
   useEffect(() => {
     const checkEvent = () => {
@@ -165,19 +171,19 @@ export default function Event({
         {eventDate ? <Button onClick={handleBook}>Book your slot now!</Button>:
         <Button onClick={handleBook}>Watch now!</Button>}
 
-        {currentUser && currentUser.email === "kvipen164@gmail.com" && (
+        {currentUser && isAdmin && (
           <Button onClick={handleDelete}>Delete</Button>
         )}
       </CardActions>
-      {currentUser && currentUser.email === "kvipen164@gmail.com" && (
+      {currentUser && isAdmin && (
         <Button onClick={handleBestSeller}>Add to Best Seller</Button>
       )}
-      {currentUser && currentUser.email === "kvipen164@gmail.com" && (
+      {currentUser && isAdmin && (
         <Button onClick={handleBestSellerDelete}>
           Remove from Best Seller
         </Button>
       )}
-      {currentUser && currentUser.email === "kvipen164@gmail.com" && (
+      {currentUser && isAdmin && (
         <div className="updateButtonForEvents">
           <TextField
             label="Youtube Link"

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState ,useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
@@ -7,10 +7,12 @@ import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { isCurrentUserAdmin } from "../widgets/IsCurrentUserAdmin";
 
 function NavbarApp() {
-  // const [error, setError] = useState("");
   const { currentUser, logout } = useAuth();
+  const [isAdmin,setIsAdmin] = useState(false);
+
   const history = useHistory();
   async function handleLogout() {
     try {
@@ -20,6 +22,11 @@ function NavbarApp() {
       
     }
   }
+
+  useEffect(() => {
+    isCurrentUserAdmin({setIsAdmin,currentUser});
+  }, [currentUser])
+
   return (
     <Navbar className="navbar navbar-dark bg-dark navstyle" expand="lg">
       <Container>
@@ -42,8 +49,8 @@ function NavbarApp() {
               </Link>
             </Nav.Link>
             <Nav.Link>
-              <Link className="links" to="/signup">
-                Contests
+              <Link className="links" to="/liveQuiz">
+                Live Quiz 💻
               </Link>
             </Nav.Link>
             <Nav.Link>
@@ -51,7 +58,7 @@ function NavbarApp() {
                 Guided Path
               </Link>
             </Nav.Link>
-            {currentUser && currentUser.email === "kvipen164@gmail.com" && (
+            {currentUser && isAdmin && (
               <Nav.Link>
                 <Link className="links" to="/admin">
                   Admin
@@ -76,11 +83,12 @@ function NavbarApp() {
                       Registered Events 📘📚
                     </Link>
                   </div>
-                  <div className="dropDownItems">
-                    <Link className="linksNavbar" to="/update-profile">
-                      Update Profile
+                  {isAdmin && <div className="dropDownItems">
+                    <Link className="linksNavbar" to="/add-new-admin">
+                      Add New Admin 🖊
                     </Link>
-                  </div>
+                  </div> }
+                  
 
                   <div className="dropDownItems">
                     <button className="registerNavbar" onClick={handleLogout}>

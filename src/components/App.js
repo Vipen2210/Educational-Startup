@@ -14,25 +14,31 @@ import AdminRoute from "../admin/AdminRoute";
 import EventBook from "../Events/EventBook";
 import HomePage from "../home/HomePage";
 import CourseHome from "../course/CourseHome";
+import LiveQuiz from "../liveQuiz/LiveQuiz";
 import RegisterdEvents from "../Dashboard/RegisterdEvents";
+import AddNewAdmin from "../Dashboard/AddAdmin/AddNewAdmin";
+import LiveQuizBook from "../liveQuiz/LiveQuizBook";
 
 function App() {
+  
   return (
     <>
       <Router>
         <AuthProvider>
-          
           <NavbarApp />
 
           <Switch>
             <Route exact path="/" component={HomePage} />
             <AdminRoute path="/admin" component={AdminHome} />
             <PrivateRoute path="/update-profile" component={UpdateProfile} />
+            <AdminRoute path="/add-new-admin" component={AddNewAdmin} />
             <PrivateRoute path="/registered-events" component={RegisterdEvents} />
             <Route path="/signup" component={Signup} />
             <Route exact path="/events" component={EventsHome} />
             <Route path="/events/:tag/:id" component={EventBook} />
             <Route path="/course" component={CourseHome} />
+            <Route exact path="/liveQuiz" component={LiveQuiz} />
+            <Route path="/liveQuiz/:id" component={LiveQuizBook} />
             <Route path="/login" component={Login} />
             <Route path="/forgot-password" component={ForgotPassword} />
           </Switch>

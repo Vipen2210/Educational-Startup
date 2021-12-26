@@ -3,16 +3,21 @@ import { db } from "../firebase";
 import Event from "./Event";
 import "./Events.css";
 import { useAuth } from "../contexts/AuthContext";
-import { Backdrop, CircularProgress } from "@mui/material";
 import { Button } from "react-bootstrap";
 import AlertConfirmationBox from "../widgets/AlertConfirmationBox";
+import { isCurrentUserAdmin } from "../widgets/IsCurrentUserAdmin";
+import LoadingData from "../widgets/LoadingData";
 
 export default function EventsHome() {
   const [posts, setPosts] = useState([]);
-  const [open, setOpen] = React.useState(true);
   const [tag, setTag] = useState("BestSeller");
   const [tags, setTags] = useState([]);
   const { currentUser } = useAuth();
+  const [isAdmin,setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    isCurrentUserAdmin({setIsAdmin,currentUser});
+  }, [currentUser])
 
   useEffect(() => {
     const val = localStorage.getItem("tag");
@@ -52,9 +57,7 @@ export default function EventsHome() {
       setTags({});
     };
   }, [tag]);
-  const handleClose = () => {
-    setOpen(false);
-  };
+
   const handleTags = (id) => {
     localStorage.setItem("tag", id);
     setTag(id);
@@ -78,7 +81,7 @@ export default function EventsHome() {
           <div className="allTags">
             {tags.map(({ id, post }) => (
               <>
-                {currentUser && currentUser.email === "kvipen164@gmail.com" ? (
+                {currentUser && isAdmin ? (
                   <>
                   <Button  key={id} onClick={()=>handleTags(id)}>{id}</Button>
                   <AlertConfirmationBox handleDeleteTag={()=>handleDeleteTag(id)} mainText="Are You sure you want to delete this tag? Delete only if no Events are under this tag!" />
@@ -93,15 +96,7 @@ export default function EventsHome() {
           </div>
         </>
       ) : (
-        <div>
-          <Backdrop
-            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-            open={open}
-            onClick={handleClose}
-          >
-            <CircularProgress color="inherit" />
-          </Backdrop>
-        </div>
+        <LoadingData />
       )}
       {posts.length > 0 ? (
         <>
