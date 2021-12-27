@@ -1,20 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
 import "../Events/Events.css";
-import { useAuth } from "../contexts/AuthContext";
 // import { Button } from "react-bootstrap";
-import { isCurrentUserAdmin } from "../widgets/IsCurrentUserAdmin";
 import LiveQuizDecoration from "./LiveQuizDecoration";
+import LoadingData from "../widgets/LoadingData";
 
 export default function LiveQuiz() {
   const [posts, setPosts] = useState([]);
-  const { currentUser } = useAuth();
-  const [isAdmin,setIsAdmin] = useState(false);
-
-  useEffect(() => {
-    isCurrentUserAdmin({setIsAdmin,currentUser});
-  }, [currentUser])
-
   useEffect(() => {
     const getEvents = () => {
       db.collection("LiveQuiz")
@@ -37,28 +29,33 @@ export default function LiveQuiz() {
 
   return (
     <>
-      {posts.length > 0 ? (
-        <>
-          <div className="cardDeck">
-            {posts.map(({ id, post }) => (
-              <LiveQuizDecoration 
-              id={id}
-              caption={post.caption}
-              imageUrl={post.imageUrl}
-              quizTopic={post.quizTopic}
-              ></LiveQuizDecoration>
-            ))}
-          </div>
-        </>
-      ) : (
-        <div>
-          <img
-            className="EmptyImage"
-            src="https://www.eazydiner.com/images/no-upcoming-events-banner.svg"
-            alt="Nothing added yet!"
-          />
+    {posts.length <= 0 ? <LoadingData/> : <>
+    
+    {posts.length !== 0 ? (
+      <>
+        <div className="cardDeck">
+          {posts.map(({ id, post }) => (
+            <LiveQuizDecoration 
+            id={id}
+            caption={post.caption}
+            imageUrl={post.imageUrl}
+            quizTopic={post.quizTopic}
+            ></LiveQuizDecoration>
+          ))}
         </div>
-      )}
+      </>
+    ) : (
+      <div>
+        <img
+          className="EmptyImage"
+          src="https://www.eazydiner.com/images/no-upcoming-events-banner.svg"
+          alt="Nothing added yet!"
+        />
+      </div>
+    )}
+    </>
+    }
+      
     </>
   );
 }

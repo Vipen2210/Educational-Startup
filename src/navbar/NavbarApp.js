@@ -83,6 +83,11 @@ function NavbarApp() {
                       Registered Events 📘📚
                     </Link>
                   </div>
+                  <div className="dropDownItems">
+                    <Link className="linksNavbar" to="/registered-live-quiz">
+                      Upcoming Quizes🎓🧠
+                    </Link>
+                  </div>
                   {isAdmin && <div className="dropDownItems">
                     <Link className="linksNavbar" to="/add-new-admin">
                       Add New Admin 🖊

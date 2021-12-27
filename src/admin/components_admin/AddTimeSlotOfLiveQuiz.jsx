@@ -11,7 +11,7 @@ const AddTimeSlotOfLiveQuiz = (props) => {
 
   const handleUpload = () => {
     db.collection("LiveQuiz").doc(props.id).collection("TimeSlots").add({
-      seats: caption,
+      seats: parseInt(caption),
       invigilatorEmailId: quizTopic,
       createdAt: new Date(),
       date: value.getDate(),
@@ -20,6 +20,7 @@ const AddTimeSlotOfLiveQuiz = (props) => {
       hours: value.getHours(),
       minutes: value.getMinutes(),
       time: value.toString(),
+      joiningLink:''
     });
     setProgress(0);
     setCaption("");

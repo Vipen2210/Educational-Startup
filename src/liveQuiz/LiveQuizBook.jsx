@@ -1,6 +1,5 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
@@ -8,10 +7,10 @@ import { isCurrentUserAdmin } from "../widgets/IsCurrentUserAdmin";
 import AddTimeSlotOfLiveQuiz from "../admin/components_admin/AddTimeSlotOfLiveQuiz.jsx";
 import { db } from "../firebase";
 import LiveQuizBookDecoration from "./LiveQuizBookDecoration";
+import LoadingData from "../widgets/LoadingData";
 
 const LiveQuizBook = () => {
   const [isAdmin, setIsAdmin] = useState(false);
-  const history = useHistory();
   const [buttonPressed, setButtonPressed] = useState(false);
   const { currentUser } = useAuth();
   const [posts, setPosts] = useState([]);
@@ -29,6 +28,7 @@ const LiveQuizBook = () => {
       db.collection("LiveQuiz")
         .doc(id)
         .collection("TimeSlots")
+        .orderBy("date")
         .onSnapshot((snapshot) => {
           setPosts(
             snapshot.docs.map((doc) => ({
@@ -42,7 +42,7 @@ const LiveQuizBook = () => {
     return () => {
       setPosts({}); // This worked for me
     };
-  }, []);
+  }, [id]);
 
   return (
     <>
@@ -62,13 +62,24 @@ const LiveQuizBook = () => {
         <AddTimeSlotOfLiveQuiz id={id} />
       ) : (
         <>
+        {posts.length>0 ? 
         <div className="cardDeck">
-          {posts.map(({hello, post }) => (
-           <LiveQuizBookDecoration  
-            id={hello}
-           />
-          ))}
-        </div>
+        {posts.map(({hello, post }) => (
+         <LiveQuizBookDecoration  
+          liveQuizId={id}
+          ids={hello}
+          invigilatorEmailId={post.invigilatorEmailId}
+          date={post.date}
+          year ={post.year}
+          month={post.month}
+          hours={post.hours}
+          minutes={post.minutes}
+          seats={post.seats}
+         />
+        ))}
+      </div>
+      : <LoadingData/>  }
+        
         </>
       )}
     </>

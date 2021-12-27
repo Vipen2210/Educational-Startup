@@ -1,0 +1,24 @@
+.upcoming-quiz-container{
+    width: 60%;
+    background-color: rgb(44, 43, 43);
+    color: white;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    margin: 10px;
+}
+
+.upcoming-quiz-image{
+    width: 18vw;
+    height: 28vh;
+    border-radius: 20%;
+}
+
+.upcoming-quiz-details{
+    
+    margin-left: auto
+}
+
+.invigilator-container{
+    /* margin-top: 10px; */
+}

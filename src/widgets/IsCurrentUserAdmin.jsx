@@ -6,8 +6,6 @@ export const isCurrentUserAdmin = async(props)=> {
       await db.collection("AdminEmails").get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             if(doc.id===props.currentUser.email){
-                console.log(doc.id);
-                console.log(props.currentUser.email);
                 props.setIsAdmin(true);
             }
         });   

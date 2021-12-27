@@ -18,6 +18,7 @@ import LiveQuiz from "../liveQuiz/LiveQuiz";
 import RegisterdEvents from "../Dashboard/RegisterdEvents";
 import AddNewAdmin from "../Dashboard/AddAdmin/AddNewAdmin";
 import LiveQuizBook from "../liveQuiz/LiveQuizBook";
+import UpcomingLiveQuizes from "../Dashboard/UpcomingQuiz/UpcomingLiveQuizes";
 
 function App() {
   
@@ -33,6 +34,7 @@ function App() {
             <PrivateRoute path="/update-profile" component={UpdateProfile} />
             <AdminRoute path="/add-new-admin" component={AddNewAdmin} />
             <PrivateRoute path="/registered-events" component={RegisterdEvents} />
+            <PrivateRoute path="/registered-live-quiz" component={UpcomingLiveQuizes} />
             <Route path="/signup" component={Signup} />
             <Route exact path="/events" component={EventsHome} />
             <Route path="/events/:tag/:id" component={EventBook} />
