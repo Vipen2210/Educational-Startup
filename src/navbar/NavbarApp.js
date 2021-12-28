@@ -1,136 +1,171 @@
-import React, { useState ,useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.css";
-import { Link } from "react-router-dom";
-import "./Navbar.css";
-import { Dropdown } from "react-bootstrap";
-import AccountBoxIcon from "@material-ui/icons/AccountBox";
-import { Navbar, Nav, Container } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
-import { isCurrentUserAdmin } from "../widgets/IsCurrentUserAdmin";
+import React, { Component } from "react";
+import { NavbarButton } from "../widgets/navbarButton/NavbarButton";
+import { MenuItems } from "./MenuItems";
+import './NavbarApp.css'
 
-function NavbarApp() {
-  const { currentUser, logout } = useAuth();
-  const [isAdmin,setIsAdmin] = useState(false);
+class NavbarApp extends Component {
 
-  const history = useHistory();
-  async function handleLogout() {
-    try {
-      await logout();
-      history.push("/login");
-    } catch {
-      
-    }
+  state = {clicked:false}
+
+  handleClick = () =>{
+    this.setState({clicked:!this.state.clicked})
   }
 
-  useEffect(() => {
-    isCurrentUserAdmin({setIsAdmin,currentUser});
-  }, [currentUser])
-
-  return (
-    <Navbar className="navbar navbar-dark bg-dark navstyle" expand="lg">
-      <Container>
-        <Navbar.Brand>
-          <Link className="TitleLinks" to="/">
-            Startup
-          </Link>
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link>
-              <Link className="links" to="/events">
-                Events
-              </Link>
-            </Nav.Link>
-            <Nav.Link>
-              <Link className="links" to="/course">
-                Courses
-              </Link>
-            </Nav.Link>
-            <Nav.Link>
-              <Link className="links" to="/liveQuiz">
-                Live Quiz 💻
-              </Link>
-            </Nav.Link>
-            <Nav.Link>
-              <Link className="links" to="/signup">
-                Guided Path
-              </Link>
-            </Nav.Link>
-            {currentUser && isAdmin && (
-              <Nav.Link>
-                <Link className="links" to="/admin">
-                  Admin
-                </Link>
-              </Nav.Link>
-            )}
-          </Nav>
-          {currentUser && (
-            <div className="accountButton">
-              <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                  <AccountBoxIcon fontSize="large" />
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <div className="dropDownItems">
-                    <Link className="linksNavbar" to="/update-profile">
-                      Update Profile 🖊
-                    </Link>
-                  </div>
-                  <div className="dropDownItems">
-                    <Link className="linksNavbar" to="/registered-events">
-                      Registered Events 📘📚
-                    </Link>
-                  </div>
-                  <div className="dropDownItems">
-                    <Link className="linksNavbar" to="/registered-live-quiz">
-                      Upcoming Quizes🎓🧠
-                    </Link>
-                  </div>
-                  {isAdmin && <div className="dropDownItems">
-                    <Link className="linksNavbar" to="/add-new-admin">
-                      Add New Admin 🖊
-                    </Link>
-                  </div> }
-                  
-
-                  <div className="dropDownItems">
-                    <button className="registerNavbar" onClick={handleLogout}>
-                      Log Out
-                    </button>
-                  </div>
-                </Dropdown.Menu>
-              </Dropdown>
-            </div>
-          )}
-          {!currentUser && (
-            
-            <div className="rightSide">
-              <button className="navbarButton">
-                <Link className="blinks" to="/login">
-                  Login
-                </Link>
-              </button>
-              <button className="register">
-                <Link className="blinks" to="/signup">
-                  Register
-                </Link>
-              </button>
-            </div>
-          )}
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
-  );
+  render() {
+    return (
+      <nav className="NavbarItems">
+        <h1 className="navbar-logo">startToday</h1>
+        <div className="menu-icon" onClick={this.handleClick}>
+           <i className={this.state.clicked ? 'fas fa-times':'fas fa-bars'}></i>
+        </div>
+        <ul className={this.state.clicked?'nav-menu active':'nav-menu'}>
+          {MenuItems.map((item, index) => {
+            return (
+              <li key={index}>
+                {" "}
+                <a className={item.cName} href={item.url}>
+                  {item.title}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+        
+        <NavbarButton>Sign up</NavbarButton>
+      </nav>
+    );
+  }
 }
 
 export default NavbarApp;
 
+// import React, { useState ,useEffect } from "react";
+// import "bootstrap/dist/css/bootstrap.css";
+// import { Link } from "react-router-dom";
+// import "./Navbar.css";
+// import { Dropdown } from "react-bootstrap";
+// import AccountBoxIcon from "@material-ui/icons/AccountBox";
+// import { Navbar, Nav, Container } from "react-bootstrap";
+// import { useHistory } from "react-router-dom";
+// import { useAuth } from "../contexts/AuthContext";
+// import { isCurrentUserAdmin } from "../widgets/IsCurrentUserAdmin";
 
+// function NavbarApp() {
+//   const { currentUser, logout } = useAuth();
+//   const [isAdmin,setIsAdmin] = useState(false);
 
+//   const history = useHistory();
+//   async function handleLogout() {
+//     try {
+//       await logout();
+//       history.push("/login");
+//     } catch {
 
+//     }
+//   }
 
+//   useEffect(() => {
+//     isCurrentUserAdmin({setIsAdmin,currentUser});
+//   }, [currentUser])
+
+//   return (
+//     <Navbar className="navbar navbar-dark bg-dark navstyle" expand="lg">
+//       <Container>
+//         <Navbar.Brand>
+//           <Link className="TitleLinks" to="/">
+//             Startup
+//           </Link>
+//         </Navbar.Brand>
+//         <Navbar.Toggle aria-controls="basic-navbar-nav" />
+//         <Navbar.Collapse id="basic-navbar-nav">
+//           <Nav className="me-auto">
+//             <Nav.Link>
+//               <Link className="links" to="/events">
+//                 Events
+//               </Link>
+//             </Nav.Link>
+//             <Nav.Link>
+//               <Link className="links" to="/course">
+//                 Courses
+//               </Link>
+//             </Nav.Link>
+//             <Nav.Link>
+//               <Link className="links" to="/liveQuiz">
+//                 Live Quiz 💻
+//               </Link>
+//             </Nav.Link>
+//             <Nav.Link>
+//               <Link className="links" to="/signup">
+//                 Guided Path
+//               </Link>
+//             </Nav.Link>
+//             {currentUser && isAdmin && (
+//               <Nav.Link>
+//                 <Link className="links" to="/admin">
+//                   Admin
+//                 </Link>
+//               </Nav.Link>
+//             )}
+//           </Nav>
+//           {currentUser && (
+//             <div className="accountButton">
+//               <Dropdown>
+//                 <Dropdown.Toggle variant="success" id="dropdown-basic">
+//                   <AccountBoxIcon fontSize="large" />
+//                 </Dropdown.Toggle>
+//                 <Dropdown.Menu>
+//                   <div className="dropDownItems">
+//                     <Link className="linksNavbar" to="/update-profile">
+//                       Update Profile 🖊
+//                     </Link>
+//                   </div>
+//                   <div className="dropDownItems">
+//                     <Link className="linksNavbar" to="/registered-events">
+//                       Registered Events 📘📚
+//                     </Link>
+//                   </div>
+//                   <div className="dropDownItems">
+//                     <Link className="linksNavbar" to="/registered-events">
+//                       Upcoming Quizes🎓🧠
+//                     </Link>
+//                   </div>
+//                   {isAdmin && <div className="dropDownItems">
+//                     <Link className="linksNavbar" to="/add-new-admin">
+//                       Add New Admin 🖊
+//                     </Link>
+//                   </div> }
+
+//                   <div className="dropDownItems">
+//                     <button className="registerNavbar" onClick={handleLogout}>
+//                       Log Out
+//                     </button>
+//                   </div>
+//                 </Dropdown.Menu>
+//               </Dropdown>
+//             </div>
+//           )}
+//           {!currentUser && (
+
+//             <div className="rightSide">
+//               <button className="navbarButton">
+//                 <Link className="blinks" to="/login">
+//                   Login
+//                 </Link>
+//               </button>
+//               <button className="register">
+//                 <Link className="blinks" to="/signup">
+//                   Register
+//                 </Link>
+//               </button>
+//             </div>
+//           )}
+//         </Navbar.Collapse>
+//       </Container>
+//     </Navbar>
+//   );
+// }
+
+// export default NavbarApp;
 
 // import React, { useState } from "react";
 
