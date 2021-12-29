@@ -1,41 +1,121 @@
-import React, { Component } from "react";
-import { NavbarButton } from "../widgets/navbarButton/NavbarButton";
-import { MenuItems } from "./MenuItems";
-import './NavbarApp.css'
+import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+import { isCurrentUserAdmin } from "../widgets/IsCurrentUserAdmin";
+import { MenuList } from "./MenuItems";
+import "./NavbarApp.css";
 
-class NavbarApp extends Component {
 
-  state = {clicked:false}
+import "bootstrap/dist/css/bootstrap.css";
+import { Link } from "react-router-dom";
+import { Dropdown } from "react-bootstrap";
+import AccountBoxIcon from "@material-ui/icons/AccountBox";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
-  handleClick = () =>{
-    this.setState({clicked:!this.state.clicked})
+const NavbarApp = () => {
+  const { currentUser,logout } = useAuth();
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [clicked, setClicked] = useState(false);
+  useEffect(() => {
+    isCurrentUserAdmin({ setIsAdmin, currentUser });
+  }, [currentUser]);
+
+  const history = useHistory();
+  async function handleLogout() {
+    try {
+      await logout();
+      history.push("/login");
+    } catch {
+
+    }
   }
 
-  render() {
-    return (
-      <nav className="NavbarItems">
-        <h1 className="navbar-logo">startToday</h1>
-        <div className="menu-icon" onClick={this.handleClick}>
-           <i className={this.state.clicked ? 'fas fa-times':'fas fa-bars'}></i>
-        </div>
-        <ul className={this.state.clicked?'nav-menu active':'nav-menu'}>
-          {MenuItems.map((item, index) => {
-            return (
-              <li key={index}>
-                {" "}
-                <a className={item.cName} href={item.url}>
-                  {item.title}
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-        
-        <NavbarButton>Sign up</NavbarButton>
-      </nav>
-    );
-  }
-}
+  const menuList = MenuList.map(({ url, title }, index) => {
+    if (url === "/admin" && !isAdmin) {
+    } else {
+      return (
+        <li key={index}>
+          <NavLink exact to={url} activeClassName="active">
+            {title}
+          </NavLink>
+        </li>
+      );
+    }
+  });
+
+  const handleClick = () => {
+    setClicked(!clicked);
+  };
+
+  return (
+    <nav>
+      <div className="logo">
+        <NavLink exact to="/">
+          <font>start</font>2day
+        </NavLink>
+      </div>
+      <div className="menu-icon" onClick={handleClick}>
+        <i className={clicked ? "fas fa-times" : "fas fa-bars"}></i>
+      </div>
+      <ul className={clicked ? "menu-list" : "menu-list close"}>{menuList}
+      
+      {currentUser && (
+            <div className="accountButton">
+              <Dropdown>
+                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                  <AccountBoxIcon fontSize="large" />
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <div className="dropDownItems">
+                    <Link className="linksNavbar" to="/update-profile">
+                      Update Profile 🖊
+                    </Link>
+                  </div>
+                  <div className="dropDownItems">
+                    <Link className="linksNavbar" to="/registered-events">
+                      Registered Events 📘📚
+                    </Link>
+                  </div>
+                  <div className="dropDownItems">
+                    <Link className="linksNavbar" to="/registered-live-quiz">
+                      Upcoming Quizes🎓🧠
+                    </Link>
+                  </div>
+                  {isAdmin && <div className="dropDownItems">
+                    <Link className="linksNavbar" to="/add-new-admin">
+                      Add New Admin 🖊
+                    </Link>
+                  </div> }
+
+                  <div className="dropDownItems">
+                    <button className="registerNavbar" onClick={handleLogout}>
+                      Log Out
+                    </button>
+                  </div>
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
+          )}
+          {!currentUser && (
+
+            <div className="rightSide">
+              <button className="navbarButton">
+                <Link className="blinks" to="/login">
+                  Login
+                </Link>
+              </button>
+              <button className="register">
+                <Link className="blinks" to="/signup">
+                  Register
+                </Link>
+              </button>
+            </div>
+          )}
+          </ul>
+      
+    </nav>
+  );
+};
 
 export default NavbarApp;
 
@@ -54,15 +134,15 @@ export default NavbarApp;
 //   const { currentUser, logout } = useAuth();
 //   const [isAdmin,setIsAdmin] = useState(false);
 
-//   const history = useHistory();
-//   async function handleLogout() {
-//     try {
-//       await logout();
-//       history.push("/login");
-//     } catch {
+  // const history = useHistory();
+  // async function handleLogout() {
+  //   try {
+  //     await logout();
+  //     history.push("/login");
+  //   } catch {
 
-//     }
-//   }
+  //   }
+  // }
 
 //   useEffect(() => {
 //     isCurrentUserAdmin({setIsAdmin,currentUser});
@@ -107,58 +187,58 @@ export default NavbarApp;
 //               </Nav.Link>
 //             )}
 //           </Nav>
-//           {currentUser && (
-//             <div className="accountButton">
-//               <Dropdown>
-//                 <Dropdown.Toggle variant="success" id="dropdown-basic">
-//                   <AccountBoxIcon fontSize="large" />
-//                 </Dropdown.Toggle>
-//                 <Dropdown.Menu>
-//                   <div className="dropDownItems">
-//                     <Link className="linksNavbar" to="/update-profile">
-//                       Update Profile 🖊
-//                     </Link>
-//                   </div>
-//                   <div className="dropDownItems">
-//                     <Link className="linksNavbar" to="/registered-events">
-//                       Registered Events 📘📚
-//                     </Link>
-//                   </div>
-//                   <div className="dropDownItems">
-//                     <Link className="linksNavbar" to="/registered-events">
-//                       Upcoming Quizes🎓🧠
-//                     </Link>
-//                   </div>
-//                   {isAdmin && <div className="dropDownItems">
-//                     <Link className="linksNavbar" to="/add-new-admin">
-//                       Add New Admin 🖊
-//                     </Link>
-//                   </div> }
+// {currentUser && (
+//   <div className="accountButton">
+//     <Dropdown>
+//       <Dropdown.Toggle variant="success" id="dropdown-basic">
+//         <AccountBoxIcon fontSize="large" />
+//       </Dropdown.Toggle>
+//       <Dropdown.Menu>
+//         <div className="dropDownItems">
+//           <Link className="linksNavbar" to="/update-profile">
+//             Update Profile 🖊
+//           </Link>
+//         </div>
+//         <div className="dropDownItems">
+//           <Link className="linksNavbar" to="/registered-events">
+//             Registered Events 📘📚
+//           </Link>
+//         </div>
+//         <div className="dropDownItems">
+//           <Link className="linksNavbar" to="/registered-events">
+//             Upcoming Quizes🎓🧠
+//           </Link>
+//         </div>
+//         {isAdmin && <div className="dropDownItems">
+//           <Link className="linksNavbar" to="/add-new-admin">
+//             Add New Admin 🖊
+//           </Link>
+//         </div> }
 
-//                   <div className="dropDownItems">
-//                     <button className="registerNavbar" onClick={handleLogout}>
-//                       Log Out
-//                     </button>
-//                   </div>
-//                 </Dropdown.Menu>
-//               </Dropdown>
-//             </div>
-//           )}
-//           {!currentUser && (
+//         <div className="dropDownItems">
+//           <button className="registerNavbar" onClick={handleLogout}>
+//             Log Out
+//           </button>
+//         </div>
+//       </Dropdown.Menu>
+//     </Dropdown>
+//   </div>
+// )}
+// {!currentUser && (
 
-//             <div className="rightSide">
-//               <button className="navbarButton">
-//                 <Link className="blinks" to="/login">
-//                   Login
-//                 </Link>
-//               </button>
-//               <button className="register">
-//                 <Link className="blinks" to="/signup">
-//                   Register
-//                 </Link>
-//               </button>
-//             </div>
-//           )}
+//   <div className="rightSide">
+//     <button className="navbarButton">
+//       <Link className="blinks" to="/login">
+//         Login
+//       </Link>
+//     </button>
+//     <button className="register">
+//       <Link className="blinks" to="/signup">
+//         Register
+//       </Link>
+//     </button>
+//   </div>
+// )}
 //         </Navbar.Collapse>
 //       </Container>
 //     </Navbar>
