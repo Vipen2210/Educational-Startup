@@ -1,11 +1,15 @@
 nav {
+  
   background: rgba(19, 70, 77, 0.9);
   padding: 20px;
   display: flex;
   justify-content: space-between;
   color: #fff;
-  position: relative;
-  z-index: 99;
+  position: sticky;
+  top: 0;
+  /* z-index: 99; */
+  z-index: 9999;
+
 }
 
 .fas {
@@ -110,7 +114,7 @@ nav {
   }
 
   .menu-list.close {
-    right: -100%;
+    display: none;
     transition: all 0.5s ease-in-out;
   }
 }
