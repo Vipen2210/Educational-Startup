@@ -5,14 +5,46 @@ import { useAuth } from "../contexts/AuthContext";
 import { isCurrentUserAdmin } from "../widgets/IsCurrentUserAdmin";
 import { db } from "../firebase";
 import SuccessErrorPopUp from "../widgets/SuccessErrorPopUp";
+import { useHistory } from "react-router-dom"; // version 5.2.0
 
 const LiveQuizBookDecoration = (props) => {
   const { currentUser } = useAuth();
+  const history = useHistory();
   const [isAdmin, setIsAdmin] = useState(false);
   const [seatBooked, setSeatBooked] = useState(0);
   const [registered, setRegistered] = useState(false);
-
   const [userDetails, setUserDetails] = useState("");
+  const [eventDate, setEventDate] = useState(true);
+
+  useEffect(() => {
+    const checkEvent = () => {
+      var x = new Date();
+      if (x.getFullYear() !== props.year) {
+        if (x.getFullYear() > props.year) {
+          setEventDate(false);
+        }
+      } else {
+        if (x.getMonth() > props.month) {
+          setEventDate(false);
+        } else if (x.getMonth() < props.month) {
+          setEventDate(true);
+        } else {
+          if (x.getDate() > props.date) {
+            setEventDate(false);
+          } else if (x.getDate() === props.date) {
+            if (x.getHours() > props.hours) {
+              setEventDate(false);
+            } else if (x.getHours() === props.hours) {
+              if (x.getMinutes() > props.minutes) {
+                setEventDate(false);
+              }
+            }
+          }
+        }
+      }
+    };
+    checkEvent();
+  }, [props.year, props.month, props.date, props.hours, props.minutes]);
 
   useEffect(() => {
     if (currentUser) {
@@ -64,7 +96,7 @@ const LiveQuizBookDecoration = (props) => {
         .doc(props.liveQuizId)
         .set({
           liveQuizId: props.liveQuizId,
-          quizId:props.ids
+          quizId: props.ids,
         })
         .catch((e) => {
           setSeatBooked(1);
@@ -87,21 +119,21 @@ const LiveQuizBookDecoration = (props) => {
     return () => {
       setUserDetails("");
     };
-  }, [userDetails]);
-  const handleAddToCalendar = () => {
-    db.collection("LiveQuiz")
+  }, [userDetails, seatBooked]);
+  const handleAddToCalendar = async () => {
+    await db
+      .collection("LiveQuiz")
       .doc(props.liveQuizId)
       .collection("TimeSlots")
       .doc(props.ids)
       .get()
       .then((snapshot) => setUserDetails(snapshot.data()));
-    console.log(userDetails);
-    console.log(userDetails.invigilatorEmailId);
-    //    return;
+
     if (userDetails.seats <= 0) {
       setSeatBooked(3);
       return;
     }
+    history.push("/registered-live-quiz");
   };
 
   return (
@@ -124,60 +156,101 @@ const LiveQuizBookDecoration = (props) => {
           message="Seat Booked Go to dashboard"
         />
       )}
-      <Box
-        sx={{
-          padding: "20px",
-          margin: "20px",
-          backgroundColor: props.seats <= 0 ? "#525252" : "#E3F2FD",
-          "&:hover": {
-            padding: "30px",
-            opacity: [0.9, 0.8, 0.7],
-          },
-        }}
-      >
-        {props.seats > 0 ? (
-          <h1 style={{ textAlign: "center" }}>Seats left {props.seats}</h1>
-        ) : (
-          <h1 style={{ textAlign: "center" }}> 😔</h1>
-        )}
+      {eventDate ? (
+        <Box
+          sx={{
+            padding: "20px",
+            margin: "20px",
+            backgroundColor: props.seats <= 0 ? "#525252" : "#E3F2FD",
+            "&:hover": {
+              padding: "30px",
+              opacity: [0.9, 0.8, 0.7],
+            },
+          }}
+        >
+          {props.seats > 0 ? (
+            <h1 style={{ textAlign: "center" }}>Seats left {props.seats}</h1>
+          ) : (
+            <h1 style={{ textAlign: "center" }}> 😔</h1>
+          )}
 
-        <p style={{ textAlign: "center" }}>
-          Date: {props.date}-{props.month + 1}-{props.year} at ⌚{props.hours}:
-          {props.minutes}
-        </p>
-        {props.seats > 0 ? (
-          <>
-            {registered ? (
-              <Button variant="secondary" backgroundColor="#00695C">
-                Seat Booked
-              </Button>
-            ) : (
-              <Button
-                variant="primary"
-                backgroundColor="#00695C"
-                onClick={handleAddToCalendar}
-              >
-                Add to your Calendar
-              </Button>
-            )}
-          </>
-        ) : (
-          <Button variant="secondary" backgroundColor="#00695C">
-            All seats booked
-          </Button>
-        )}
+          <p style={{ textAlign: "center" }}>
+            Date: {props.date}-{props.month + 1}-{props.year} at ⌚{props.hours}
+            :{props.minutes}
+          </p>
+          {props.seats > 0 ? (
+            <>
+              {registered ? (
+                <Button variant="secondary" backgroundColor="#00695C">
+                  Seat Booked
+                </Button>
+              ) : (
+                <Button
+                  variant="primary"
+                  backgroundColor="#00695C"
+                  onClick={handleAddToCalendar}
+                >
+                  Add to your Calendar
+                </Button>
+              )}
+            </>
+          ) : (
+            <Button variant="secondary" backgroundColor="#00695C">
+              All seats booked
+            </Button>
+          )}
 
-        {isAdmin && (
+          {isAdmin && (
+            <Button
+              className="ms-3"
+              variant="primary"
+              backgroundColor="#00695C"
+              onClick={handleDeleteTimeSlot}
+            >
+              ❌
+            </Button>
+          )}
+        </Box>
+      ) : (
+        <Box
+          sx={{
+            padding: "20px",
+            margin: "20px",
+            backgroundColor: "#525252",
+            "&:hover": {
+              padding: "30px",
+              opacity: [0.9, 0.8, 0.7],
+            },
+          }}
+        >
+          
+            <h1 style={{ textAlign: "center" }}> 😔</h1>
+         
+
+          <p style={{ textAlign: "center" }}>
+            Date: {props.date}-{props.month + 1}-{props.year} at ⌚{props.hours}
+            :{props.minutes}
+          </p>
           <Button
-            className="ms-3"
-            variant="primary"
-            backgroundColor="#00695C"
-            onClick={handleDeleteTimeSlot}
-          >
-            ❌
-          </Button>
-        )}
-      </Box>
+                  variant="primary"
+                  backgroundColor="#00695C"
+                  onClick={handleAddToCalendar}
+                >
+                  Quiz passed!
+                </Button>
+
+          {isAdmin && (
+            <Button
+              className="ms-3"
+              variant="primary"
+              backgroundColor="#00695C"
+              onClick={handleDeleteTimeSlot}
+            >
+              ❌
+            </Button>
+          )}
+        </Box>
+      )}
     </div>
   );
 };

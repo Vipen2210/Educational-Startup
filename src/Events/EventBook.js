@@ -35,7 +35,9 @@ export default function EventBook() {
       // console.log("Current");
       var x = new Date();
       if (x.getFullYear() !== posts.year) {
-        setEventDate(true);
+        if(x.getFullYear()>posts.year){
+          setEventDate(false);
+        }
       } else {
         if (x.getMonth() > posts.month) {
           setEventDate(false);

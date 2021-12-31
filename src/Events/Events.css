@@ -8,6 +8,24 @@
   .event{
     margin: 20px;
   }
+
+  /* saem's css */
+  .main-EventHome-div{
+    display: flex;
+
+  }
+  .left-EventHome-div{
+    position: fixed;
+    height: 100vh;
+    width: 30%;
+    background-color: black;
+    box-shadow: 8px 0px 3px rgba(19, 70, 77, 0.9);
+
+  }
+  .right-EventHome-div{
+    margin-left: 30%;
+    width: 70%;
+  }
   .Eventcard{
     width: 25%;
     text-align: left;
@@ -77,8 +95,8 @@
   }
 
   .EmptyImage{
-    width: 90vw;
-    height: 88vh;
+    width: 60vw;
+    height: 70vh;
     /* margin-top: 5%; */
     margin-left: 5vw;
   }
@@ -115,16 +133,22 @@
       color: rgb(80, 78, 78);
       margin-left: 10px;
     }
+
     .allTags{
       /* background-color: cadetblue; */
+    
       display: flex;
-      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-around;
     }
+
     .allTags Button {
       color: black;
+      width: auto;
       background-color: rgb(148, 233, 148);
       margin: 10px;
       border: solid teal;
+   
     }
     .allTags Button:hover {
       background-color: #fe6c3e;

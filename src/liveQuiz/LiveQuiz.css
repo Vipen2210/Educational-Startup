@@ -8,3 +8,127 @@
     height: 10rem;
     margin-bottom: 5px;
 }
+
+.live-quiz-reviews{
+    text-transform: uppercase;
+    color: white;
+    background-color:rgba(19, 70, 77, 0.9) ;
+    position: fixed;
+    bottom:0;
+    right: 0;
+
+    width: 8vw;
+    height: 10vh;
+    text-align: center;
+    display: flex;
+    padding-top: 10px;
+    /* z-index: 9000; */
+    align-content: center;
+    /* flex-direction: column; */
+    align-items: center;
+    justify-content:center;
+    transition: all .5s ease-out;
+    border-radius: 20px 5px 0px 5px;
+    cursor: pointer;
+}
+
+.live-quiz-reviews:hover{
+    background-color: black;
+    transform: scale(1.2);
+}
+/* reviews   */
+
+.modal-reviews{
+    
+    margin-top: 8vh;
+}
+.modal-body-reviews{
+    overflow:auto;
+    width: 100%;
+    height: 60vh;
+}
+.footer-reviews{
+    display: flex;
+    flex-direction: row;
+}
+.reviews-textfield{
+    width: 80%;
+    color: white;
+    background-color: rgb(85, 84, 84);
+}
+
+/* comments or reviews section   */
+
+.all-reviews{
+    display: flex;
+    flex-direction: row;
+    width: 72vw;
+    border: rgb(72, 152, 161) solid;
+    font-family: 'Montserrat', sans-serif;
+    /* justify-content: space-between; */
+}
+.all-reviews-2{
+    display: flex;
+    flex-direction: row;
+    width: 72vw;
+    border: rgb(197, 98, 131) solid;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.reviewComment{
+    font-family: 'Montserrat', sans-serif;
+    margin-left: 5px;
+}
+
+.reviewDay{
+    display: flex;
+    justify-content: flex-end;
+    font-size: smaller;
+    font-family: 'Montserrat', sans-serif;
+}
+
+@media screen and (max-width: 1000px) {
+    .live-quiz-reviews{
+        text-transform: uppercase;
+        color: white;
+        background-color:rgba(19, 70, 77, 0.9) ;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        width: 30vw;
+        height: 7vh;
+        text-align: center;
+        display: flex;
+        padding-top: 10px;
+        /* z-index: 9000; */
+        align-content: center;
+        /* flex-direction: column; */
+        align-items: center;
+        justify-content:center;
+        border-radius: 20px 5px 20px 5px;
+    }
+    .modal-reviews{
+        margin-top: 3vh;
+    }.modal-body-reviews{
+        overflow:auto;
+        width: 100%;
+        height: 60vh;
+    }
+    .all-reviews{
+        display: flex;
+        flex-direction: column;
+        width: 70vw;
+        border: rgb(72, 152, 161) solid;
+        font-family: 'Montserrat', sans-serif;
+        /* justify-content: space-between; */
+    }
+    .all-reviews-2{
+        display: flex;
+        flex-direction: column;
+        width: 70vw;
+        border: rgb(197, 98, 131) solid;
+        font-family: 'Montserrat', sans-serif;
+    }
+}
+
+

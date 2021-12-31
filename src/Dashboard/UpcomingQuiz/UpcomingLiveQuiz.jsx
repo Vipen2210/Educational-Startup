@@ -30,17 +30,13 @@ const UpcomingLiveQuiz = (props) => {
 
     getQuiz();
     getQuizDetails();
-
-    return () => {
-      setQuiz(""); // This worked for me
-      setQuizSlot("");
-    };
   }, [currentUser.email, props.liveQuizId, props.quizId]);
+
 
   useEffect(() => {
     console.log(quiz);
     console.log(quizSlot);
-    if (quizSlot !== "" && currentUser.email === quizSlot.invigilatorEmailId) {
+    if (quizSlot && quizSlot !== "" && currentUser.email === quizSlot.invigilatorEmailId) {
       setIsInvigilator(true);
     }
   }, [quizSlot]);
@@ -57,12 +53,13 @@ const UpcomingLiveQuiz = (props) => {
           </div>
           <div className="upcoming-quiz-details">
             <h1 style={{ textAlign: "center" }}> {quiz.quizTopic}</h1>
+           {quizSlot &&
             <p style={{ textAlign: "center" }}>
               Date: {quizSlot.date}-{quizSlot.month + 1}-{quizSlot.year} at ⌚
               {quizSlot.hours}:{quizSlot.minutes}
-            </p>
+            </p>}
             <br />
-            {quizSlot.joiningLink === "" ? (
+            {quizSlot ? (quizSlot.joiningLink === "" ? (
               <Button variant="warning" backgroundColor="#25513b">
                 Joining link will be availabe 1hour before the quiz.
               </Button>
@@ -77,7 +74,17 @@ const UpcomingLiveQuiz = (props) => {
               >
                 Join Now! 👈🏽
               </Button>
-            )}
+            )
+            ):<Button
+            variant="primary"
+            backgroundColor="#25513b"
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.href = quizSlot.joiningLink;
+            }}
+          >
+            Quiz passed
+          </Button>}
             <div className="invigilator-container">
               {isInvigilator && (
                 <>

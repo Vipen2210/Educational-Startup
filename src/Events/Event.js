@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { db, storage } from "../firebase";
 import { useHistory } from "react-router-dom";
@@ -31,17 +31,20 @@ export default function Event({
   const history = useHistory();
   const [youtubeLink, setYoutubeLink] = useState("");
   const [eventDate, setEventDate] = useState(true);
-  const [isAdmin,setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [youtubeLinkOfEvent, setYoutubeLinkOfEvent] = useState("");
 
   useEffect(() => {
-    isCurrentUserAdmin({setIsAdmin,currentUser});
-  }, [currentUser])
+    isCurrentUserAdmin({ setIsAdmin, currentUser });
+  }, [currentUser]);
 
   useEffect(() => {
     const checkEvent = () => {
       var x = new Date();
       if (x.getFullYear() !== year) {
-        setEventDate(true);
+        if(x.getFullYear()>year){
+          setEventDate(false);
+        }
       } else {
         if (x.getMonth() > month) {
           setEventDate(false);
@@ -50,11 +53,11 @@ export default function Event({
         } else {
           if (x.getDate() > date) {
             setEventDate(false);
-          }else if(x.getDate() === date){
-            if(x.getHours()>hours){
+          } else if (x.getDate() === date) {
+            if (x.getHours() > hours) {
               setEventDate(false);
-            }else if(x.getHours()===hours){
-              if(x.getMinutes()>minutes){
+            } else if (x.getHours() === hours) {
+              if (x.getMinutes() > minutes) {
                 setEventDate(false);
               }
             }
@@ -63,7 +66,7 @@ export default function Event({
       }
     };
     checkEvent();
-  }, [year,month,date,hours,minutes])
+  }, [year, month, date, hours, minutes]);
 
   const handleBook = () => {
     if (currentUser) {
@@ -72,7 +75,7 @@ export default function Event({
       history.push(`/signup`);
     }
   };
-  
+
   const handleDelete = () => {
     let imageRef = storage.refFromURL(imageUrl);
     imageRef
@@ -93,18 +96,29 @@ export default function Event({
       .collection(tag)
       .doc(eventId)
       .collection("Emails");
-      refe
-      .get()
-      .then((res) => {
-        res.forEach((element) => {
-          element.ref.delete();
-        });
+    refe.get().then((res) => {
+      res.forEach((element) => {
+        element.ref.delete();
       });
-      // deleting the user personal registered events
-      db.collection("Dashboard").doc(currentUser.email).collection("RegisteredEvents").doc(eventId).delete();
+    });
+    // deleting the user personal registered events
+    db.collection("Dashboard")
+      .doc(currentUser.email)
+      .collection("RegisteredEvents")
+      .doc(eventId)
+      .delete();
   };
- 
+
   const handleBestSeller = () => {
+    // fetching data for setting the youtube link while adding to the best seller
+   
+    db.collection("Events")
+      .doc("tags")
+      .collection(tag)
+      .doc(eventId)
+      .get()
+      .then((snapshot) => setYoutubeLinkOfEvent(snapshot.data()));
+
     db.collection("Events")
       .doc("tags")
       .collection("BestSeller")
@@ -122,13 +136,13 @@ export default function Event({
         hours: hours,
         minutes: minutes,
         time: time,
+        youtubeLink: youtubeLinkOfEvent.youtubeLink ? youtubeLinkOfEvent.youtubeLink:"",
       });
     db.collection("Events")
       .doc("tags")
       .collection("tagNames")
       .doc("BestSeller")
       .set({});
-    
   };
   const handleBestSellerDelete = () => {
     db.collection("Events")
@@ -168,8 +182,11 @@ export default function Event({
         >
           <WhatsAppIcon />
         </a>
-        {eventDate ? <Button onClick={handleBook}>Book your slot now!</Button>:
-        <Button onClick={handleBook}>Watch now!</Button>}
+        {eventDate ? (
+          <Button onClick={handleBook}>Book your slot now!</Button>
+        ) : (
+          <Button onClick={handleBook}>Watch now!</Button>
+        )}
 
         {currentUser && isAdmin && (
           <Button onClick={handleDelete}>Delete</Button>

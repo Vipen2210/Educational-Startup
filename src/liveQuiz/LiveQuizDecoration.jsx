@@ -47,27 +47,32 @@ function LiveQuizDecoration(props) {
       .collection("LiveQuiz")
       .doc(props.id)
       .collection("TimeSlots");
+    
+    refe.get().then((res) => {
+      res.forEach((element) => {
+        const emailRefer = db
+          .collection("LiveQuiz")
+          .doc(props.id)
+          .collection("TimeSlots")
+          .doc(element.id)
+          .collection("Emails");
+        emailRefer.get().then((res) => {
+          res.forEach((element) => {
+            element.ref.delete();
+            db.collection("Dashboard")
+              .doc(element.id)
+              .collection("RegisteredLiveQuiz")
+              .doc(props.id)
+              .delete();
+          });
+        });
+      });
+    });
     refe.get().then((res) => {
       res.forEach((element) => {
         element.ref.delete();
       });
     });
-    refe.get().then((res) => {
-      res.forEach((element) => {
-        const emailRefer = db.collection("LiveQuiz").doc(props.id).collection("TimeSlots").doc(element.id).collection("Emails");
-        emailRefer.get().then((res) => {
-          res.forEach((element) => {
-            element.ref.delete();
-          });
-        });
-      });
-    });
-    // deleting the user personal registered events
-    db.collection("Dashboard")
-      .doc(currentUser.email)
-      .collection("RegisteredLiveQuiz")
-      .doc(props.id)
-      .delete();
   };
   const handleBook = () => {
     if (currentUser) {
@@ -91,7 +96,9 @@ function LiveQuizDecoration(props) {
           <Card.Text>{props.caption}</Card.Text>
 
           {registered ? (
-            <Button variant="dark">Quiz details</Button>
+            <Button variant="dark" onClick={()=>{
+              history.push ('/registered-live-quiz');
+            }}>Quiz details</Button>
           ) : (
             <Button variant="success" onClick={handleBook}>
               Choose your slot!
