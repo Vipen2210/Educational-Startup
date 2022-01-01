@@ -1,14 +1,14 @@
 /* home page starting */
 
-.mainPage{
+.mainPage {
   background-color: white;
   padding-bottom: 20px;
   padding-top: 10px;
-} 
-.mainDescription{
+}
+.mainDescription {
   margin-top: 20px;
   padding-top: 70px;
-  font-family: 'Manrope', sans-serif;
+  font-family: "Manrope", sans-serif;
   font-size: 40px;
   font-style: normal;
   font-weight: 700;
@@ -18,18 +18,17 @@
   display: flex;
   float: left;
 }
-.mainPageImage{
+.mainPageImage {
   float: right;
   height: 350px;
   width: 35%;
   margin-right: 100px;
   margin-top: 90px;
   border-radius: 20%;
-
 }
-.shortDescription{
+.shortDescription {
   margin-top: 30px;
-  font-family: 'Manrope', sans-serif;
+  font-family: "Manrope", sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 600;
@@ -55,32 +54,32 @@
 }
 
 /* heading  */
-.Question{
+.Question {
   /* background-color: #f2f3f6; */
   text-align: center;
   margin-top: 50px;
   font-size: 8vh;
 }
-.paraQuestion{
+.paraQuestion {
   /* margin-top: 20px;
   padding-top: 20px; */
   /* padding-bottom: 50px; */
-  font-family: 'Manrope', sans-serif;
+  font-family: "Manrope", sans-serif;
 }
-.Qdescription{
+.Qdescription {
   text-align: center;
   font-size: 20px;
   padding-left: 35px;
   padding-right: 35px;
 }
-.Qspan{
+.Qspan {
   color: #fe6c3e;
 }
-.courses{
+.courses {
   text-align: left;
 }
 /* carousel  */
-.CarouselContainerHome{
+.CarouselContainerHome {
   /* width: 80vw; */
   height: 80vh;
   margin: auto;
@@ -88,40 +87,38 @@
   background-color: rgb(235, 239, 243);
 }
 
-.Carouselimage{
+.Carouselimage {
   height: 50vh;
   width: 50vw;
   margin-top: 10vh;
   /* margin-bottom: 5vh; */
   margin-left: 25vw;
-  /* position: relative; */ 
+  /* position: relative; */
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.carouselCaption{
+.carouselCaption {
   width: 50vw;
   margin-left: 25vw;
   color: white;
   text-align: center;
   margin-bottom: 7vh;
   /* margin-left: .2vw; */
-  background-color: rgb(54, 53, 53); 
+  background-color: rgb(54, 53, 53);
 }
-
-
 
 /* Monthly quizes  */
 
-.practiseQuizWorkshop{
+.practiseQuizWorkshop {
   display: flex;
   flex-direction: row;
   margin-left: 5vw;
   margin-right: 5vw;
   margin-bottom: 10vh;
 }
-.monthyQuizes{
+.monthyQuizes {
   width: 40vw;
   height: 60vh;
   margin-right: auto;
@@ -131,17 +128,20 @@
   align-items: center;
   box-shadow: 5px 10px 18px cadetblue;
 }
-.monthyQuizes h2{
+.monthyQuizes h2 {
   text-align: center;
   margin-top: 10px;
 }
-.monthyQuizes img{
+.monthyQuizes img {
   width: 40vw;
   margin-top: 10px;
   padding: 10px;
 }
+.HomePage-image{
+  height: 12rem;
+}
 
-.englishWorkshops{
+/* .englishWorkshops {
   width: 40vw;
   display: flex;
   flex-direction: column;
@@ -151,99 +151,122 @@
   box-shadow: 5px 10px 18px purple;
   /* border: d red; */
   /* background-color: blueviolet; */
-}
-.englishWorkshops h2{
+/* }
+.englishWorkshops h2 {
   text-align: center;
   margin-top: 10px;
 }
-.englishWorkshops img{
+.englishWorkshops img {
   width: 40vw;
-  padding: 10px;
-  margin-top: 10px;
-}
+} */ 
 
-
-@media only screen and (max-width: 1064px){
-  .mainPage{
+@media only screen and (max-width: 1064px) {
+  .HomePage-image{
+    height: auto
+  }
+  .mainPage {
     background-color: white;
     padding-bottom: 20px;
     padding-top: 10px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
-  .mainPageImage{
-    height: 350px;
+  .mainPageImage {
+    height: 35vh;
+    width: 94vw;
     margin: auto;
-    width: 80%;
-  
+    margin-top: 20px;
   }
-  .mainDescription{
-      margin-top: 20px;
-      padding-top: 70px;
-      font-family: 'Manrope', sans-serif;
-      font-size: 25px;
-      font-style: normal;
-      font-weight: 800;
-      width: 80%;
-      text-align: left;
-      display: flex;
-      justify-content: center;
-    }
-    .shortDescription{
-      margin-top: 30px;
-      font-family: 'Manrope', sans-serif;
-      font-size: 20px;
-      font-style: normal;
-      font-weight: 600;
-      width: 80%;
-      text-align: left;
-      display: flex;
-      justify-content: center;
-      color: #31343c;
-    }
-    .explore {
-      background-color: #073763ff;
-      color: lightyellow;
-      border: 2px solid lightyellow;
-      padding: 15px 32px;
-      margin-bottom: 110px;
-      text-align: center;
-      width: 50%;
-      margin: auto;
-      text-decoration: none;
-      display: inline-block;
+  .mainDescription {
+    margin-top: 20px;
+    padding-top: 70px;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 800;
+    width: 94vw;
+    font-family: "Manrope", sans-serif;
+  }
+  .shortDescription {
+    margin-top: 30px;
+    font-family: "Manrope", sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    width: 94vw;
+    color: #31343c;
+  }
+  .explore {
+    background-color: #073763ff;
+    color: lightyellow;
+    border: 2px solid lightyellow;
+    padding: 15px 32px;
+    margin-bottom: 110px;
+    text-align: center;
+    width: 50%;
+    margin: auto;
+    text-decoration: none;
+    display: inline-block;
 
-      margin-top: 10px;
-      font-size: 16px;
-      border-radius: 4px;
-    }
-    .paraQuestion{
-      font-size: 40px;
-      text-align: center;
-      justify-content: center;
-    }
-    .Carouselimage{
-      height: 35vh;
-      width: 50vw;
-      margin-top: 10vh;
-      /* margin-bottom: 5vh; */
-      margin-left: 25vw;
-      /* position: relative; */ 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    margin-top: 10px;
+    font-size: 16px;
+    border-radius: 4px;
   }
-  .carouselCaption{
-    width: 50vw;
-    margin-left: 25vw;
+  .paraQuestion {
+    font-size: 34px;
+    text-align: center;
+    justify-content: center;
+  }
+  .CarouselContainerHome {
+    width: 100%;
+    background-color: rgb(235, 239, 243);
+    height: 54vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .Carouselimage {
+    height: 30vh;
+    width: 94%;
+    margin: auto;
+    /* position: relative; */
+  }
+  .carouselCaption {
+    width: 94%;
     color: white;
     text-align: center;
-    margin-bottom: 7vh;
+    margin: auto;
     /* margin-left: .2vw; */
-    background-color: rgb(54, 53, 53); 
+    background-color: rgb(54, 53, 53);
   }
-} 
-@media only screen and (max-width: 582.5px){
+  
+  /* quizes   */
+  .practiseQuizWorkshop {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .monthyQuizes {
+    width: 94%;
+    height: 25%;
+    margin: auto;
+    box-shadow: 5px 10px 18px rgb(117, 158, 42);
+    margin-bottom: 5%;
+    padding: 12%;
+  }
+  .monthyQuizes h2 {
+    text-align: center;
+  }
+  .monthyQuizes img {
+    width: 80%;
+  }
+
+}
+/* @media only screen and (max-width: 582.5px){
   .practiseQuizWorkshop{
     display: flex;
     flex-direction: column;
@@ -276,4 +299,4 @@
     box-shadow: 5px 10px 18px purple;
     margin-left: 67px;
   }
-}
+} */

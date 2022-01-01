@@ -4,8 +4,10 @@ import "./home.css";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import Footer from "../footer/Footer";
+import { useHistory } from "react-router-dom";
 
 export default function HomePage() {
+  const history=useHistory();
   return (
     <>
       <div className="mainPage">
@@ -18,12 +20,12 @@ export default function HomePage() {
           className="mainPageImage"
           alt=""
         />
-        <p className="shortDescription">
+        <div className="shortDescription">
           Learn top-notch skills and build unique qualities to guarantee a
           better future.
-        </p>
+        </div>
         <button className="explore">
-          <Link className="Explorelinks" to="/course">
+          <Link className="Explorelinks" to="/events">
             Explore
           </Link>
         </button>
@@ -93,22 +95,26 @@ export default function HomePage() {
         </div>
         <div className="practiseQuizWorkshop">
           <div className="monthyQuizes">
-            <h2>Monthy Quizes</h2>
-            <img
+            <h2>Live Quizes</h2>
+            <img className="HomePage-image"
               src="https://image.shutterstock.com/image-vector/quiz-time-poster-colorful-paper-260nw-1186919491.jpg"
               alt="Quiz Time"
             />
-            <Button className="mt-3" type="submit">
+            <Button className="mt-3" onClick={()=>{
+              history.push('/liveQuiz');
+            }}>
               Take your quiz now!
             </Button>
           </div>
-          <div className="englishWorkshops">
-            <h2>English Workshops</h2>
-            <img
-              src="https://image.shutterstock.com/image-vector/header-websites-about-learning-english-260nw-1588302319.jpg"
+          <div className="monthyQuizes">
+            <h2>Unique Events</h2>
+            <img  className="HomePage-image" 
+              src="https://image.shutterstock.com/image-vector/events-colorful-typography-banner-260nw-1356206768.jpg"
               alt=""
             />
-            <Button className="mt-3" type="submit">
+            <Button className="mt-3" onClick={()=>{
+              history.push('/events');
+            }}>
               Join now!
             </Button>
           </div>

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
@@ -11,6 +11,16 @@ export default function Login() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
+  const [status, setStatus] = useState(false);
+
+  useEffect(() => {
+    if (status) {
+      setTimeout(() => {
+        history.push("/");
+        setStatus(false);
+      }, 2000);
+    }
+  }, [status]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -19,7 +29,7 @@ export default function Login() {
       setError("");
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
-      history.push("/");
+      setStatus(true);
     } catch {
       setError("Failed to log in");
     }
@@ -28,14 +38,15 @@ export default function Login() {
   }
 
   return (
-    <Container
-      className="d-flex align-items-center justify-content-center"
-      style={{ minHeight: "80vh" }}
-    >
+    <Container className="login-container" style={{ minHeight: "80vh" }}>
+      <div className="login-heading">
+        <h1>Let's start2day! 🚀🚀</h1>
+      </div>
       <div className="w-100" style={{ maxWidth: "400px" }}>
         <Card>
           <Card.Body>
             <h2 className="text-center mb-4">Log In</h2>
+            {status && <Alert variant="success">Logged in!</Alert>}
             {error && <Alert variant="danger">{error}</Alert>}
             <Form onSubmit={handleSubmit}>
               <Form.Group id="email">
@@ -46,9 +57,15 @@ export default function Login() {
                 <Form.Label>Password</Form.Label>
                 <Form.Control type="password" ref={passwordRef} required />
               </Form.Group>
-              <Button disabled={loading} className="w-100 mt-3" type="submit">
-                Log In
-              </Button>
+              {status ? (
+                <Button disabled={loading} variant="dark" className="w-100 mt-3">
+                  Log In
+                </Button>
+              ) : (
+                <Button disabled={loading} className="w-100 mt-3" type="submit">
+                  Log In
+                </Button>
+              )}
             </Form>
             <div className="w-100 text-center mt-3">
               <Link to="/forgot-password">Forgot Password?</Link>

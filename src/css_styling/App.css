@@ -36,3 +36,32 @@ body{
     float: left;
   }
  
+
+
+  /* login page   */
+  .login-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    }
+
+  .login-heading{
+    margin-right: 10%;
+  }
+
+
+  @media screen and (max-width: 992px) {
+    .login-container{
+      display: flex;
+      flex-direction: column;
+      }
+      .login-heading{
+        margin-bottom: 10%;
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        
+      }
+  }

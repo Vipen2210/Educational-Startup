@@ -1,24 +1,165 @@
-.live-quiz-container{
-    margin: 20px;
-    box-shadow: .5vh .5vh 1vh 1vh ;
+.live-quiz-show-container {
+  display: flex;
+  /* flex-direction: row; */
+  /* align-items: center; */
+  /* justify-content: center; */
+  flex-direction: row;
+  text-align: center;
+  margin-top: 6vh;
+}
+.live-quiz-show-container-subpart1 {
+  width: 40vw;
+  background-color: white;
+}
+.live-quiz-show-container-subpart2 {
+  width: 60vw;
+  margin-left: 5vw;
 }
 
-.live-quiz-imagedecor{
-    width: 16rem;
-    height: 10rem;
-    margin-bottom: 5px;
+.live-quiz-youtubeShower {
+  width: 36vw;
+  height: 40vh;
+  /* margin-left: 2vw; */
+}
+.live-quiz-image {
+  width: 36vw;
+  height: 80vh;
+  margin-top: 5vh;
+  border-radius: 50px;
+  margin-bottom: 5vh;
 }
 
-.live-quiz-reviews{
+.live-quiz-container {
+  margin: 20px;
+  box-shadow: 0.5vh 0.5vh 1vh 1vh;
+}
+
+.live-quiz-imagedecor {
+  width: 16rem;
+  height: 10rem;
+  margin-bottom: 5px;
+}
+
+.live-quiz-reviews {
+  text-transform: uppercase;
+  color: white;
+  background-color: rgba(19, 70, 77, 0.9);
+  position: fixed;
+  bottom: 0;
+  right: 0;
+
+  width: 8vw;
+  height: 10vh;
+  text-align: center;
+  display: flex;
+  padding-top: 10px;
+  /* z-index: 9000; */
+  align-content: center;
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-out;
+  border-radius: 20px 5px 0px 5px;
+  cursor: pointer;
+}
+
+.live-quiz-reviews:hover {
+  background-color: black;
+  transform: scale(1.2);
+}
+/* reviews   */
+
+.modal-reviews {
+  margin-top: 8vh;
+}
+.modal-body-reviews {
+  overflow: auto;
+  width: 100%;
+  height: 60vh;
+}
+.footer-reviews {
+  display: flex;
+  flex-direction: row;
+}
+.reviews-textfield {
+  width: 80%;
+  color: white;
+  background-color: rgb(85, 84, 84);
+}
+
+/* comments or reviews section   */
+
+.all-reviews {
+  display: flex;
+  flex-direction: row;
+  width: 72vw;
+  border: rgb(72, 152, 161) solid;
+  font-family: "Montserrat", sans-serif;
+  /* justify-content: space-between; */
+}
+.all-reviews-2 {
+  display: flex;
+  flex-direction: row;
+  width: 72vw;
+  border: rgb(197, 98, 131) solid;
+  font-family: "Montserrat", sans-serif;
+}
+
+.reviewComment {
+  font-family: "Montserrat", sans-serif;
+  margin-left: 5px;
+}
+
+.reviewDay {
+  display: flex;
+  justify-content: flex-end;
+  font-size: smaller;
+  font-family: "Montserrat", sans-serif;
+}
+
+@media screen and (max-width: 1000px) {
+  .live-quiz-show-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 4vh;
+  }
+  .live-quiz-show-container-subpart1 {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+  }
+  .live-quiz-show-container-subpart2 {
+    width: 100%;
+    margin-right: 5vw;
+  }
+
+  .live-quiz-youtubeShower {
+    width: 94%;
+    height: 30vh;
+    /* margin-left: 2vw; */
+  }
+  .live-quiz-image {
+    width: 94%;
+    height: 30vh;
+    margin-top: 5vh;
+    border-radius: 50px;
+    margin-bottom: 5vh;
+  }
+
+  .live-quiz-reviews {
     text-transform: uppercase;
     color: white;
-    background-color:rgba(19, 70, 77, 0.9) ;
+    background-color: rgba(19, 70, 77, 0.9);
     position: fixed;
-    bottom:0;
+    bottom: 0;
     right: 0;
-
-    width: 8vw;
-    height: 10vh;
+    width: 30vw;
+    height: 7vh;
     text-align: center;
     display: flex;
     padding-top: 10px;
@@ -26,109 +167,30 @@
     align-content: center;
     /* flex-direction: column; */
     align-items: center;
-    justify-content:center;
-    transition: all .5s ease-out;
-    border-radius: 20px 5px 0px 5px;
-    cursor: pointer;
-}
-
-.live-quiz-reviews:hover{
-    background-color: black;
-    transform: scale(1.2);
-}
-/* reviews   */
-
-.modal-reviews{
-    
-    margin-top: 8vh;
-}
-.modal-body-reviews{
-    overflow:auto;
+    justify-content: center;
+    border-radius: 20px 5px 20px 5px;
+  }
+  .modal-reviews {
+    margin-top: 3vh;
+  }
+  .modal-body-reviews {
+    overflow: auto;
     width: 100%;
     height: 60vh;
-}
-.footer-reviews{
+  }
+  .all-reviews {
     display: flex;
-    flex-direction: row;
-}
-.reviews-textfield{
-    width: 80%;
-    color: white;
-    background-color: rgb(85, 84, 84);
-}
-
-/* comments or reviews section   */
-
-.all-reviews{
-    display: flex;
-    flex-direction: row;
-    width: 72vw;
+    flex-direction: column;
+    width: 70vw;
     border: rgb(72, 152, 161) solid;
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
     /* justify-content: space-between; */
-}
-.all-reviews-2{
+  }
+  .all-reviews-2 {
     display: flex;
-    flex-direction: row;
-    width: 72vw;
+    flex-direction: column;
+    width: 70vw;
     border: rgb(197, 98, 131) solid;
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
+  }
 }
-
-.reviewComment{
-    font-family: 'Montserrat', sans-serif;
-    margin-left: 5px;
-}
-
-.reviewDay{
-    display: flex;
-    justify-content: flex-end;
-    font-size: smaller;
-    font-family: 'Montserrat', sans-serif;
-}
-
-@media screen and (max-width: 1000px) {
-    .live-quiz-reviews{
-        text-transform: uppercase;
-        color: white;
-        background-color:rgba(19, 70, 77, 0.9) ;
-        position: fixed;
-        bottom: 0;
-        right: 0;
-        width: 30vw;
-        height: 7vh;
-        text-align: center;
-        display: flex;
-        padding-top: 10px;
-        /* z-index: 9000; */
-        align-content: center;
-        /* flex-direction: column; */
-        align-items: center;
-        justify-content:center;
-        border-radius: 20px 5px 20px 5px;
-    }
-    .modal-reviews{
-        margin-top: 3vh;
-    }.modal-body-reviews{
-        overflow:auto;
-        width: 100%;
-        height: 60vh;
-    }
-    .all-reviews{
-        display: flex;
-        flex-direction: column;
-        width: 70vw;
-        border: rgb(72, 152, 161) solid;
-        font-family: 'Montserrat', sans-serif;
-        /* justify-content: space-between; */
-    }
-    .all-reviews-2{
-        display: flex;
-        flex-direction: column;
-        width: 70vw;
-        border: rgb(197, 98, 131) solid;
-        font-family: 'Montserrat', sans-serif;
-    }
-}
-
-

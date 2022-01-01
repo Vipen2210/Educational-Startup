@@ -7,7 +7,7 @@ import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { isCurrentUserAdmin } from "../widgets/IsCurrentUserAdmin";
-import MenuIcon from '@material-ui/icons/Menu';
+import MenuIcon from "@material-ui/icons/Menu";
 
 import { Button } from "react-bootstrap";
 import Typography from "@mui/material/Typography";
@@ -116,7 +116,7 @@ function NavbarApp() {
                 )}
 
                 <div className="dropDownItems">
-                  <button className="registerNavbar" onClick={handleLogout}>
+                  <button className="bg-success registerNavbar" onClick={handleLogout}>
                     Log Out
                   </button>
                 </div>
@@ -126,16 +126,14 @@ function NavbarApp() {
         )}
         {!currentUser && (
           <div className="rightSide">
-            <button className="navbarButton">
-              <Link className="blinks" to="/login">
-                Login
-              </Link>
-            </button>
-            <button className="register">
-              <Link className="blinks" to="/signup">
-                Register
-              </Link>
-            </button>
+            <Link className="blinks" to="/login">
+              <button className="navbarButton"> Login </button>
+            </Link>
+
+            <Link className="blinks" to="/signup">
+              {" "}
+              <button className="register">Register</button>
+            </Link>
           </div>
         )}
       </div>

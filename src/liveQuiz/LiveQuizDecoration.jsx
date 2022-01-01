@@ -82,6 +82,7 @@ function LiveQuizDecoration(props) {
     }
   };
   return (
+    
     <div className="live-quiz-container">
       <Card style={{ width: "18rem" }}>
         <Card.Body>
